@@ -1,0 +1,65 @@
+from behave import *
+from selenium.webdriver.common.by import By
+
+
+@given(u'the user has the correct credentials')
+def step_impl(context):
+    context.browser.get('https://sprinkle-burn.glitch.me/')
+    context.browser.maximize_window()
+    assert_equal(context.browser.title, "Worlds Best App")
+
+    raise NotImplementedError(
+        u'STEP: Given the user has the correct credentials')
+
+
+@when(u'the enter username')
+def step_impl(context):
+
+    context.browser.find_element(By.NAME, "email").send_keys("test@drugdev.com")
+    
+    raise NotImplementedError(u'STEP: When the enter username')
+
+
+@when(u'the user enters password')
+def step_impl(context):
+    context.browser.find_element(By.NAME, "password").send_keys("supers3cret")    
+    raise NotImplementedError(u'STEP: When the user enters password')
+
+
+@when(u'clicks Login')
+def step_impl(context):
+    context.browser.find_element(By.XPATH, "//*[name()='button']").click()
+    context.browser.implicitly_wait(10)
+    assert_equal(context.browser.title, "Worlds Best App")
+
+    raise NotImplementedError(u'STEP: When clicks Login')
+
+
+@then(u'the user is presented with a welcome message')
+def step_impl(context):
+    assert "Welcome Dr I Test" not in context.browser.page_source,'Its not correct page %s'%context.browser.page_source
+
+    raise NotImplementedError(
+        u'STEP: Then the user is presented with a welcome message')
+
+
+#################@given(u'the user has the incorrect credentials')   # This function doesnt require
+def step_impl(context):
+    context.browser.find_element(By.NAME, "email").send_keys("chinna.com")
+    context.browser.find_element(By.NAME, "password").send_keys("reddy")
+    context.browser.find_element(By.XPATH, "//*[name()='button']").click()
+
+    raise NotImplementedError(
+        u'STEP: Given the user has the incorrect credentials')######################
+
+
+@then(u'the user is presented with a error message')
+def step_impl(context):
+    try:
+      context.browser.find_element(By.NAME, "email").send_keys("chinna.com")
+      context.browser.find_element(By.NAME, "password").send_keys("reddy")
+      context.browser.find_element(By.XPATH, "//*[name()='button']").click()
+  except:
+      raise NotImplementedError(
+          u'STEP: Given the user has the incorrect credentials')
+    
